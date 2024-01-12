@@ -173,18 +173,11 @@ describe Merchant do
     it "max_coupons_activated" do
       expect(@merchant_1.max_coupons_activated?).to eq(false)
 
-      Coupon.create!(name: "1", code: "1", amount_off: "asdj", active: true, merchant: @merchant_1)
-      Coupon.create!(name: "2", code: "2", amount_off: "asdj", active: true, merchant: @merchant_1)
-      Coupon.create!(name: "3", code: "3", amount_off: "asdj", active: true, merchant: @merchant_1)
-      Coupon.create!(name: "4", code: "4", amount_off: "asdj", active: true, merchant: @merchant_1)
-      Coupon.create!(name: "5", code: "5", amount_off: "asdj", active: true, merchant: @merchant_1)
-
-      # find out why factory bot isn't working for coupons
-      # @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
-      # @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
-      # @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
-      # @coupon_4 = create(:coupon, active: true, merchant: @merchant_1)
-      # @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_4 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
 
       expect(@merchant_1.max_coupons_activated?).to eq(true)
     end

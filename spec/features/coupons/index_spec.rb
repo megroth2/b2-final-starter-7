@@ -41,11 +41,11 @@ RSpec.describe "merchant coupons index" do
     @transaction_6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction_7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id) # are these intentionally out of order?
 
-    @coupon_1 = Coupon.create!(name: "1", code: "1", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_2 = Coupon.create!(name: "2", code: "2", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_3 = Coupon.create!(name: "3", code: "3", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_4 = Coupon.create!(name: "4", code: "4", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_5 = Coupon.create!(name: "5", code: "5", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
+    @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_4 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
 
     visit merchant_coupons_path(@merchant_1)
   end
@@ -63,12 +63,18 @@ RSpec.describe "merchant coupons index" do
     it "displays all coupons" do
       # visit("/merchants/#{@merchant_1.id}/coupons")
 
-      expect(page).to have_link("#{@coupon_1.name}")
-      expect(page).to have_content("Amount off: #{@coupon_1.amount_off}")
+      within("table") do
+        expect(page).to have_link("#{@coupon_1.name}")
+        expect(page).to have_link("#{@coupon_2.name}")
+        expect(page).to have_link("#{@coupon_3.name}")
+        expect(page).to have_link("#{@coupon_4.name}")
+        expect(page).to have_link("#{@coupon_5.name}")
+        expect(page).to have_content("Amount off: #{@coupon_1.amount_off}")
 
-      click_link("#{@coupon_1.name}")
+        click_link("#{@coupon_1.name}")
 
-      expect(current_path).to eq(merchant_coupon_path, @merchant_1, @coupon_1)
+        expect(current_path).to eq(merchant_coupon_path(@merchant_1, @coupon_1))
+      end
     end
   end
 end
