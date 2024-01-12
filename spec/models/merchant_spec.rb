@@ -15,12 +15,12 @@ describe Merchant do
 
   describe "class methods" do
     before :each do
-      @merchant1 = Merchant.create!(name: 'Hair Care')
-      @merchant2 = Merchant.create!(name: 'Jewelry')
-      @merchant3 = Merchant.create!(name: 'Office Space')
-      @merchant4 = Merchant.create!(name: 'The Office')
-      @merchant5 = Merchant.create!(name: 'Office Improvement')
-      @merchant6 = Merchant.create!(name: 'Pens & Stuff')
+      @merchant_1 = Merchant.create!(name: 'Hair Care')
+      @merchant_2 = Merchant.create!(name: 'Jewelry')
+      @merchant_3 = Merchant.create!(name: 'Office Space')
+      @merchant_4 = Merchant.create!(name: 'The Office')
+      @merchant_5 = Merchant.create!(name: 'Office Improvement')
+      @merchant_6 = Merchant.create!(name: 'Pens & Stuff')
 
       @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
       @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
@@ -69,15 +69,15 @@ describe Merchant do
       @ii_13 = InvoiceItem.create!(invoice_id: @invoice_9.id, item_id: @item_11.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
       @ii_14 = InvoiceItem.create!(invoice_id: @invoice_9.id, item_id: @item_12.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
 
-      @transaction1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
-      @transaction2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
-      @transaction3 = Transaction.create!(credit_card_number: 234092, result: 1, invoice_id: @invoice_3.id)
-      @transaction4 = Transaction.create!(credit_card_number: 230429, result: 1, invoice_id: @invoice_4.id)
-      @transaction5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_5.id)
-      @transaction6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
-      @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
-      @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
-      @transaction8 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_9.id)
+      @transaction_1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
+      @transaction_2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
+      @transaction_3 = Transaction.create!(credit_card_number: 234092, result: 1, invoice_id: @invoice_3.id)
+      @transaction_4 = Transaction.create!(credit_card_number: 230429, result: 1, invoice_id: @invoice_4.id)
+      @transaction_5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_5.id)
+      @transaction_6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
+      @transaction_7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
+      @transaction_8 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
+      @transaction_9 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_9.id)
 
     end
 
@@ -91,18 +91,18 @@ describe Merchant do
 
   describe "instance methods" do
     before :each do
-      @merchant1 = Merchant.create!(name: 'Hair Care')
-      @merchant2 = Merchant.create!(name: 'Jewelry')
+      @merchant_1 = Merchant.create!(name: 'Hair Care')
+      @merchant_2 = Merchant.create!(name: 'Jewelry')
 
-      @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
-      @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
-      @item_3 = Item.create!(name: "Brush", description: "This takes out tangles", unit_price: 5, merchant_id: @merchant1.id)
-      @item_4 = Item.create!(name: "Hair tie", description: "This holds up your hair", unit_price: 1, merchant_id: @merchant1.id)
-      @item_7 = Item.create!(name: "Scrunchie", description: "This holds up your hair but is bigger", unit_price: 3, merchant_id: @merchant1.id)
-      @item_8 = Item.create!(name: "Butterfly Clip", description: "This holds up your hair but in a clip", unit_price: 5, merchant_id: @merchant1.id)
+      @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant_1.id, status: 1)
+      @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant_1.id)
+      @item_3 = Item.create!(name: "Brush", description: "This takes out tangles", unit_price: 5, merchant_id: @merchant_1.id)
+      @item_4 = Item.create!(name: "Hair tie", description: "This holds up your hair", unit_price: 1, merchant_id: @merchant_1.id)
+      @item_7 = Item.create!(name: "Scrunchie", description: "This holds up your hair but is bigger", unit_price: 3, merchant_id: @merchant_1.id)
+      @item_8 = Item.create!(name: "Butterfly Clip", description: "This holds up your hair but in a clip", unit_price: 5, merchant_id: @merchant_1.id)
 
-      @item_5 = Item.create!(name: "Bracelet", description: "Wrist bling", unit_price: 200, merchant_id: @merchant2.id)
-      @item_6 = Item.create!(name: "Necklace", description: "Neck bling", unit_price: 300, merchant_id: @merchant2.id)
+      @item_5 = Item.create!(name: "Bracelet", description: "Wrist bling", unit_price: 200, merchant_id: @merchant_2.id)
+      @item_6 = Item.create!(name: "Necklace", description: "Neck bling", unit_price: 300, merchant_id: @merchant_2.id)
 
       @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
       @customer_2 = Customer.create!(first_name: 'Cecilia', last_name: 'Jones')
@@ -130,63 +130,63 @@ describe Merchant do
       @ii_9 = InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_4.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
       @ii_10 = InvoiceItem.create!(invoice_id: @invoice_8.id, item_id: @item_4.id, quantity: 1, unit_price: 1, status: 1, created_at: "2012-04-04 14:54:09")
 
-      @transaction1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
-      @transaction2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
-      @transaction3 = Transaction.create!(credit_card_number: 234092, result: 1, invoice_id: @invoice_3.id)
-      @transaction4 = Transaction.create!(credit_card_number: 230429, result: 1, invoice_id: @invoice_4.id)
-      @transaction5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_5.id)
-      @transaction6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
-      @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
-      @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
+      @transaction_1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
+      @transaction_2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
+      @transaction_3 = Transaction.create!(credit_card_number: 234092, result: 1, invoice_id: @invoice_3.id)
+      @transaction_4 = Transaction.create!(credit_card_number: 230429, result: 1, invoice_id: @invoice_4.id)
+      @transaction_5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_5.id)
+      @transaction_6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
+      @transaction_7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
+      @transaction_8 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
 
     end
 
     it "can list items ready to ship" do
-      expect(@merchant1.ordered_items_to_ship).to eq([@item_1, @item_1, @item_3, @item_4, @item_7, @item_8, @item_4, @item_4])
+      expect(@merchant_1.ordered_items_to_ship).to eq([@item_1, @item_1, @item_3, @item_4, @item_7, @item_8, @item_4, @item_4])
     end
 
     it "shows a list of favorite customers" do
-      actual = @merchant1.favorite_customers.map do |customer|
+      actual = @merchant_1.favorite_customers.map do |customer|
         customer[:first_name]
       end
       expect(actual).to eq([@customer_1.first_name, @customer_2.first_name, @customer_3.first_name, @customer_4.first_name, @customer_6.first_name])
     end
 
     it "top_5_items" do
-      expect(@merchant1.top_5_items).to eq([@item_1, @item_2, @item_3, @item_8, @item_4])
+      expect(@merchant_1.top_5_items).to eq([@item_1, @item_2, @item_3, @item_8, @item_4])
     end
 
     it "best_day" do
-      expect(@merchant1.best_day).to eq(@invoice_8.created_at.to_date)
+      expect(@merchant_1.best_day).to eq(@invoice_8.created_at.to_date)
     end
 
     it "enabled_items" do
-      expect(@merchant1.enabled_items).to eq([@item_1])
-      expect(@merchant2.enabled_items).to eq([])
+      expect(@merchant_1.enabled_items).to eq([@item_1])
+      expect(@merchant_2.enabled_items).to eq([])
     end
 
     it "disabled_items" do 
-      expect(@merchant1.disabled_items).to eq([@item_2, @item_3, @item_4, @item_7, @item_8])
-      expect(@merchant2.disabled_items).to eq([@item_5, @item_6])
+      expect(@merchant_1.disabled_items).to eq([@item_2, @item_3, @item_4, @item_7, @item_8])
+      expect(@merchant_2.disabled_items).to eq([@item_5, @item_6])
     end
 
     it "max_coupons_activated" do
-      expect(@merchant1.max_coupons_activated?).to eq(false)
-      
-      coupon1 = Coupon.create!(name: "1", code: "1", category: "asdj", active: true, merchant: @merchant1)
-      coupon2 = Coupon.create!(name: "2", code: "2", category: "asdj", active: true, merchant: @merchant1)
-      coupon3 = Coupon.create!(name: "3", code: "3", category: "asdj", active: true, merchant: @merchant1)
-      coupon4 = Coupon.create!(name: "4", code: "4", category: "asdj", active: true, merchant: @merchant1)
-      coupon5 = Coupon.create!(name: "5", code: "5", category: "asdj", active: true, merchant: @merchant1)
+      expect(@merchant_1.max_coupons_activated?).to eq(false)
+
+      Coupon.create!(name: "1", code: "1", amount_off: "asdj", active: true, merchant: @merchant_1)
+      Coupon.create!(name: "2", code: "2", amount_off: "asdj", active: true, merchant: @merchant_1)
+      Coupon.create!(name: "3", code: "3", amount_off: "asdj", active: true, merchant: @merchant_1)
+      Coupon.create!(name: "4", code: "4", amount_off: "asdj", active: true, merchant: @merchant_1)
+      Coupon.create!(name: "5", code: "5", amount_off: "asdj", active: true, merchant: @merchant_1)
 
       # find out why factory bot isn't working for coupons
-      # create(:coupon, active: true, merchant: @merchant1)
-      # create(:coupon, active: true, merchant: @merchant1)
-      # create(:coupon, active: true, merchant: @merchant1)
-      # create(:coupon, active: true, merchant: @merchant1)
-      # create(:coupon, active: true, merchant: @merchant1)
+      # @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+      # @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
+      # @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
+      # @coupon_4 = create(:coupon, active: true, merchant: @merchant_1)
+      # @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
 
-      expect(@merchant1.max_coupons_activated?).to eq(true)
+      expect(@merchant_1.max_coupons_activated?).to eq(true)
     end
   end
 end

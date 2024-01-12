@@ -6,7 +6,7 @@ class CouponsController < ApplicationController
   private
 
   def coupon_params
-    params.permit(:id, :name, :code, :category, :active, :merchant_id, :created_at, :updated_at)
+    params.permit(:id, :name, :code, :amount_off, :active, :merchant_id, :created_at, :updated_at)
   end
 
 end

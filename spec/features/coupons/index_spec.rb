@@ -1,7 +1,8 @@
 require "rails_helper"
 
-RSpec.describe "merchant dashboard" do
-  before :each do
+RSpec.describe "merchant coupons index" do
+
+  before(:each) do
     @merchant_1 = Merchant.create!(name: "Hair Care")
 
     @customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
@@ -38,7 +39,7 @@ RSpec.describe "merchant dashboard" do
     @transaction_4 = Transaction.create!(credit_card_number: 230429, result: 1, invoice_id: @invoice_5.id)
     @transaction_5 = Transaction.create!(credit_card_number: 102938, result: 1, invoice_id: @invoice_6.id)
     @transaction_6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
-    @transaction_7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
+    @transaction_7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id) # are these intentionally out of order?
 
     @coupon_1 = Coupon.create!(name: "1", code: "1", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
     @coupon_2 = Coupon.create!(name: "2", code: "2", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
@@ -46,84 +47,7 @@ RSpec.describe "merchant dashboard" do
     @coupon_4 = Coupon.create!(name: "4", code: "4", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
     @coupon_5 = Coupon.create!(name: "5", code: "5", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
 
-    visit merchant_dashboard_index_path(@merchant_1)
-  end
-
-  it "shows the merchant name" do
-    expect(page).to have_content(@merchant_1.name)
-  end
-
-  it "can see a link to my merchant items index" do
-    expect(page).to have_link("Items")
-
-    click_link "Items"
-
-    expect(current_path).to eq("/merchants/#{@merchant_1.id}/items")
-  end
-
-  it "can see a link to my merchant invoices index" do
-    expect(page).to have_link("Invoices")
-
-    click_link "Invoices"
-
-    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices")
-  end
-
-  it "shows the names of the top 5 customers with successful transactions" do
-    within("#customer-#{@customer_1.id}") do
-      expect(page).to have_content(@customer_1.first_name)
-      expect(page).to have_content(@customer_1.last_name)
-
-      expect(page).to have_content(3)
-    end
-    within("#customer-#{@customer_2.id}") do
-      expect(page).to have_content(@customer_2.first_name)
-      expect(page).to have_content(@customer_2.last_name)
-      expect(page).to have_content(1)
-    end
-    within("#customer-#{@customer_3.id}") do
-      expect(page).to have_content(@customer_3.first_name)
-      expect(page).to have_content(@customer_3.last_name)
-      expect(page).to have_content(1)
-    end
-    within("#customer-#{@customer_4.id}") do
-      expect(page).to have_content(@customer_4.first_name)
-      expect(page).to have_content(@customer_4.last_name)
-      expect(page).to have_content(1)
-    end
-    within("#customer-#{@customer_5.id}") do
-      expect(page).to have_content(@customer_5.first_name)
-      expect(page).to have_content(@customer_5.last_name)
-      expect(page).to have_content(1)
-    end
-    expect(page).to have_no_content(@customer_6.first_name)
-    expect(page).to have_no_content(@customer_6.last_name)
-  end
-  it "can see a section for Items Ready to Ship with list of names of items ordered and ids" do
-    within("#items_ready_to_ship") do
-
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_1.invoice_ids)
-
-      expect(page).to have_content(@item_2.name)
-      expect(page).to have_content(@item_2.invoice_ids)
-
-      expect(page).to have_no_content(@item_3.name)
-      expect(page).to have_no_content(@item_3.invoice_ids)
-    end
-  end
-
-  it "each invoice id is a link to my merchant's invoice show page " do
-    expect(page).to have_link("#{@item_1.invoice_ids}")
-    expect(page).to have_link("#{@item_2.invoice_ids}")
-    expect(page).to_not have_link("#{@item_3.invoice_ids}")
-
-    click_link("#{@item_1.invoice_ids}", match: :first)
-    expect(current_path).to eq("/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}")
-  end
-
-  it "shows the date that the invoice was created in this format: Monday, July 18, 2019" do
-    expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %-d, %Y"))
+    visit merchant_coupons_path(@merchant_1)
   end
 
   describe "User Story 1" do
@@ -136,14 +60,15 @@ RSpec.describe "merchant dashboard" do
     # Where I see all of my coupon names including their amount off 
     # And each coupon's name is also a link to its show page.
 
-    it "has a link to view all coupons" do
-      # visit("/merchants/#{@merchant_1.id}/dashboard")
+    it "displays all coupons" do
+      # visit("/merchants/#{@merchant_1.id}/coupons")
 
-      expect(page).to have_link("View All Coupons")
+      expect(page).to have_link("#{@coupon_1.name}")
+      expect(page).to have_content("Amount off: #{@coupon_1.amount_off}")
 
-      click_link("View All Coupons")
+      click_link("#{@coupon_1.name}")
 
-      expect(current_path).to eq(merchant_coupons_path, @merchant_1)
+      expect(current_path).to eq(merchant_coupon_path, @merchant_1, @coupon_1)
     end
   end
 end
