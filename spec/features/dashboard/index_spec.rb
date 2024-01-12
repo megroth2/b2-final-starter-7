@@ -40,11 +40,11 @@ RSpec.describe "merchant dashboard" do
     @transaction_6 = Transaction.create!(credit_card_number: 879799, result: 1, invoice_id: @invoice_7.id)
     @transaction_7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
 
-    @coupon_1 = Coupon.create!(name: "1", code: "1", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_2 = Coupon.create!(name: "2", code: "2", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_3 = Coupon.create!(name: "3", code: "3", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_4 = Coupon.create!(name: "4", code: "4", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
-    @coupon_5 = Coupon.create!(name: "5", code: "5", amount_off: "asdj", active: true, merchant: @merchant_1) # use factory bot
+    @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_4 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
 
     visit merchant_dashboard_index_path(@merchant_1)
   end
@@ -143,7 +143,7 @@ RSpec.describe "merchant dashboard" do
 
       click_link("View All Coupons")
 
-      expect(current_path).to eq(merchant_coupons_path, @merchant_1)
+      expect(current_path).to eq(merchant_coupons_path(@merchant_1))
     end
   end
 end
