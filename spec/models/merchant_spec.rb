@@ -140,6 +140,7 @@ describe Merchant do
       @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
 
     end
+
     it "can list items ready to ship" do
       expect(@merchant1.ordered_items_to_ship).to eq([@item_1, @item_1, @item_3, @item_4, @item_7, @item_8, @item_4, @item_4])
     end
@@ -167,6 +168,25 @@ describe Merchant do
     it "disabled_items" do 
       expect(@merchant1.disabled_items).to eq([@item_2, @item_3, @item_4, @item_7, @item_8])
       expect(@merchant2.disabled_items).to eq([@item_5, @item_6])
+    end
+
+    it "max_coupons_activated" do
+      expect(@merchant1.max_coupons_activated?).to eq(false)
+      
+      coupon1 = Coupon.create!(name: "1", code: "1", category: "asdj", active: true, merchant: @merchant1)
+      coupon2 = Coupon.create!(name: "2", code: "2", category: "asdj", active: true, merchant: @merchant1)
+      coupon3 = Coupon.create!(name: "3", code: "3", category: "asdj", active: true, merchant: @merchant1)
+      coupon4 = Coupon.create!(name: "4", code: "4", category: "asdj", active: true, merchant: @merchant1)
+      coupon5 = Coupon.create!(name: "5", code: "5", category: "asdj", active: true, merchant: @merchant1)
+
+      # find out why factory bot isn't working for coupons
+      # create(:coupon, active: true, merchant: @merchant1)
+      # create(:coupon, active: true, merchant: @merchant1)
+      # create(:coupon, active: true, merchant: @merchant1)
+      # create(:coupon, active: true, merchant: @merchant1)
+      # create(:coupon, active: true, merchant: @merchant1)
+
+      expect(@merchant1.max_coupons_activated?).to eq(true)
     end
   end
 end
