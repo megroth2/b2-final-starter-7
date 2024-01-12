@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe Coupon do
-  # before(:each) do
-  #   @merchant = create(:merchant)
-  #   @coupon = create(:coupon, merchant: @merchant)
-  # end
+  before(:each) do
+    # @merchant = create(:merchant)
+    @merchant_1 = Merchant.create!(name: "merchant 1")
+    @coupon_1 = create(:coupon, merchant: @merchant_1)
+  end
 
-  xdescribe "validations" do
+  describe "validations" do
     it { should validate_uniqueness_of :code }
   end
   
