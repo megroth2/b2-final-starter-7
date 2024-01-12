@@ -17,7 +17,7 @@ FactoryBot.define do
   end
 
   factory :item do
-    name {Faker::Coffee.variety}
+    name {Faker::Commerce.product_name}
     description {Faker::Hipster.sentence}
     unit_price {Faker::Number.decimal(l_digits: 2)}
     merchant
@@ -33,5 +33,13 @@ FactoryBot.define do
     status {[0,1,2].sample}
     merchant
     invoice
+  end
+
+  factory :coupon do
+    name {"#{code}_coupon"}
+    code {Faker::Commerce.promotion_code}
+    category {%w[percent-off dollar-off].sample}
+    active {false}
+    merchant 
   end
 end
