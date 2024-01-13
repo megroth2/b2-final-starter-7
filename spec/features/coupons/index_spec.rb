@@ -76,5 +76,35 @@ RSpec.describe "merchant coupons index" do
         expect(current_path).to eq(merchant_coupon_path(@merchant_1, @coupon_1))
       end
     end
+
+    xdescribe "User Story 2. Merchant Coupon Create" do
+      # As a merchant
+      # When I visit my coupon index page 
+      # I see a link to create a new coupon.
+      # When I click that link 
+      # I am taken to a new page where I see a form to add a new coupon.
+      # When I fill in that form with a name, unique code, an amount, and whether that amount is a percent or a dollar amount
+      # And click the Submit button
+      # I'm taken back to the coupon index page 
+      # And I can see my new coupon listed.
+   
+      # * Sad Paths to consider: 
+      # 1. This Merchant already has 5 active coupons
+      # 2. Coupon code entered is NOT unique
+   
+      it "has a link to create a new coupon with name, code, amount_off, category" do
+   
+      end
+    end
+
+    xdescribe "User Story 6. Merchant Coupon Index Sorted" do
+      # As a merchant
+      # When I visit my coupon index page
+      # I can see that my coupons are separated between active and inactive coupons.
+   
+      it "displays active and inactive coupons in separate sections" do
+   
+      end
+    end
   end
 end
