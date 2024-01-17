@@ -138,7 +138,6 @@ describe Merchant do
       @transaction_6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
       @transaction_7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
       @transaction_8 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
-
     end
 
     it "can list items ready to ship" do
@@ -180,6 +179,26 @@ describe Merchant do
       @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
 
       expect(@merchant_1.max_coupons_activated?).to eq(true)
+    end
+
+    it "returns active coupons" do
+      @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_4 = create(:coupon, active: false, merchant: @merchant_1)
+      @coupon_5 = create(:coupon, active: false, merchant: @merchant_1)
+
+      expect(@merchant_1.active_coupons).to eq([@coupon_1, @coupon_2, @coupon_3])
+    end
+  
+    it "returns inactive coupons" do
+      @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_4 = create(:coupon, active: false, merchant: @merchant_1)
+      @coupon_5 = create(:coupon, active: false, merchant: @merchant_1)
+      
+      expect(@merchant_1.inactive_coupons).to eq([@coupon_4, @coupon_5])
     end
   end
 end
