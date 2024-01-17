@@ -35,4 +35,14 @@ describe Coupon do
     expect(@coupon_1.status).to eq("active")
     expect(@coupon_2.status).to eq("inactive")
   end
+
+  it "returns true if any invoices are pending" do
+    @invoice_3 = Invoice.create!(customer_id: @customer_1.id, status: 1, coupon_id: @coupon_1.id)
+
+    expect(@coupon_1.invoices_pending?).to eq(true)
+  end
+
+  it "returns false if no invoices are pending" do
+    expect(@coupon_1.invoices_pending?).to eq(false)
+  end
 end
