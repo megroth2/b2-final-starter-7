@@ -99,6 +99,14 @@ RSpec.describe "merchant coupons index" do
       
       expect(current_path).to eq(new_merchant_coupon_path(@merchant_1)) # "/merchants/#{@merchant_1.id}/coupons/new"
     end
+
+    it "has a link to create a new coupon with name, code, amount_off, category" do
+      expect(page).to have_link("New Coupon")
+
+      click_link("New Coupon")
+      
+      expect(current_path).to eq(new_merchant_coupon_path(@merchant_1)) # "/merchants/#{@merchant_1.id}/coupons/new"
+    end
   end
 
   xdescribe "User Story 6. Merchant Coupon Index Sorted" do

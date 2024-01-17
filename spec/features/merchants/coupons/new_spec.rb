@@ -39,5 +39,13 @@ RSpec.describe "new coupon page" do
       expect(page).to have_link("20OFF_coupon")
       expect(page).to have_content("Amount Off: 2000")
     end
+
+    xit "creates an inactive coupon if the merchant already has 5 active coupons" do
+
+    end
+
+    xit "errors if the coupon code is not unique" do
+
+    end
   end
 end
