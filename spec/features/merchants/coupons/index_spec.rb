@@ -50,8 +50,7 @@ RSpec.describe "merchant coupons index" do
     visit merchant_coupons_path(@merchant_1)
   end
 
-  describe "User Story 1" do
-    # 1. Merchant Coupons Index 
+  describe "User Story 1. Merchant Coupons Index " do
     # As a merchant
     # When I visit my merchant dashboard page
     # I see a link to view all of my coupons
@@ -69,42 +68,46 @@ RSpec.describe "merchant coupons index" do
         expect(page).to have_link("#{@coupon_3.name}")
         expect(page).to have_link("#{@coupon_4.name}")
         expect(page).to have_link("#{@coupon_5.name}")
-        expect(page).to have_content("Amount off: #{@coupon_1.amount_off}")
+        expect(page).to have_content("Amount Off: #{@coupon_1.amount_off}")
 
         click_link("#{@coupon_1.name}")
 
         expect(current_path).to eq(merchant_coupon_path(@merchant_1, @coupon_1))
       end
     end
+  end
 
-    xdescribe "User Story 2. Merchant Coupon Create" do
-      # As a merchant
-      # When I visit my coupon index page 
-      # I see a link to create a new coupon.
-      # When I click that link 
-      # I am taken to a new page where I see a form to add a new coupon.
-      # When I fill in that form with a name, unique code, an amount, and whether that amount is a percent or a dollar amount
-      # And click the Submit button
-      # I'm taken back to the coupon index page 
-      # And I can see my new coupon listed.
+  describe "User Story 2. Merchant Coupon Create" do
+    # As a merchant
+    # When I visit my coupon index page 
+    # I see a link to create a new coupon.
+    # When I click that link 
+    # I am taken to a new page where I see a form to add a new coupon.
+    # When I fill in that form with a name, unique code, an amount, and whether that amount is a percent or a dollar amount
+    # And click the Submit button
+    # I'm taken back to the coupon index page 
+    # And I can see my new coupon listed.
    
-      # * Sad Paths to consider: 
-      # 1. This Merchant already has 5 active coupons
-      # 2. Coupon code entered is NOT unique
+    # * Sad Paths to consider: 
+    # 1. This Merchant already has 5 active coupons
+    # 2. Coupon code entered is NOT unique
    
-      it "has a link to create a new coupon with name, code, amount_off, category" do
-   
-      end
+    it "has a link to create a new coupon with name, code, amount_off, category" do
+      expect(page).to have_link("New Coupon")
+
+      click_link("New Coupon")
+      
+      expect(current_path).to eq(new_merchant_coupon_path(@merchant_1)) # "/merchants/#{@merchant_1.id}/coupons/new"
     end
+  end
 
-    xdescribe "User Story 6. Merchant Coupon Index Sorted" do
-      # As a merchant
-      # When I visit my coupon index page
-      # I can see that my coupons are separated between active and inactive coupons.
+  xdescribe "User Story 6. Merchant Coupon Index Sorted" do
+    # As a merchant
+    # When I visit my coupon index page
+    # I can see that my coupons are separated between active and inactive coupons.
    
-      it "displays active and inactive coupons in separate sections" do
+    it "displays active and inactive coupons in separate sections" do
    
-      end
     end
   end
 end

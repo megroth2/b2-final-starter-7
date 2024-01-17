@@ -1,0 +1,17 @@
+<h1>New Coupon</h1>
+
+<%= form_with url: "/merchants/#{@merchant.id}/coupons", method: :post, data: { turbo: false } do |f| %>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %></br>
+
+  <%= f.label :code, "Code" %>
+  <%= f.text_field :code %></br>
+
+  <%= f.label :amount_off, "Amount Off" %>
+  <%= f.text_field :amount_off %></br>
+
+  <%= f.label :category, "Category" %>
+  <%= f.text_field :category %></br>
+
+  <%= f.submit "Submit" %>
+<% end %>
