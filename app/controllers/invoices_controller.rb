@@ -22,11 +22,6 @@ class InvoicesController < ApplicationController
     redirect_to merchant_invoice_path(@merchant, @invoice)
   end
 
-  private
-  def invoice_params
-    params.require(:invoice).permit(:status)
-  end
-
   def find_invoice_and_merchant
     @invoice = Invoice.find(params[:id])
     @merchant = Merchant.find(params[:merchant_id])
@@ -34,5 +29,11 @@ class InvoicesController < ApplicationController
 
   def find_merchant
     @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  private
+  
+  def invoice_params
+    params.require(:invoice).permit(:status)
   end
 end
