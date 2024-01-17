@@ -66,8 +66,19 @@ RSpec.describe "new coupon page" do
       end
     end
 
-    xit "errors if the coupon code is not unique" do
+    it "errors if the coupon code is not unique" do
+      @coupon_1 = create(:coupon, active: true, merchant: @merchant_1, code: "20OFF")
 
+      fill_in("name", with: "20OFF_coupon")
+      fill_in("code", with: "20OFF")
+      fill_in("amount_off", with: "2000")
+      fill_in("Category", with: "dollar-off")
+      fill_in("active", with: "true")
+
+      click_button("Submit")
+      
+      expect(current_path).to eq(merchant_coupons_path(@merchant_1))
+      expect(page).to have_content("Error: Code not unique")
     end
   end
 end

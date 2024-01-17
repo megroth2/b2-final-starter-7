@@ -5,14 +5,14 @@ class CouponsController < ApplicationController
   
   def create
     @merchant = Merchant.find(params[:merchant_id])
-    @coupon = Coupon.create!(coupon_params)
-    
-    if @merchant.max_coupons_activated?
-      @coupon.update(coupon_params.merge(active: false))
+    if Coupon.find_by(code: coupon_params[:code])
+      flash[:alert] = "Error: Code not unique"
+    elsif @merchant.max_coupons_activated?
+      @coupon = Coupon.create!(coupon_params.merge(active: false))
     else
-      @coupon.update(coupon_params)
+      @coupon = Coupon.create!(coupon_params)
     end
-
+    
     redirect_to merchant_coupons_path(@merchant)
   end
 
