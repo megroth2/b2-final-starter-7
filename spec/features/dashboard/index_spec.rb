@@ -126,8 +126,7 @@ RSpec.describe "merchant dashboard" do
     expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %-d, %Y"))
   end
 
-  describe "User Story 1" do
-    # 1. Merchant Coupons Index 
+  describe "User Story 1. Merchant Coupons Index " do
     # As a merchant
     # When I visit my merchant dashboard page
     # I see a link to view all of my coupons

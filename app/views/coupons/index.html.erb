@@ -1,5 +1,7 @@
 <h1>Merchant Coupons</h1>
 
+<p><%= link_to "New Coupon", new_merchant_coupon_path(@merchant) %></p>
+
 <style>table, th, td</style>
 <table>
   <thead>
@@ -8,7 +10,7 @@
     <% @merchant.coupons.each do |coupon| %>
       <tr>
         <td><%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></td>
-        <td><%= "Amount off: #{coupon.amount_off}" %></td>
+        <td><%= "Amount Off: #{coupon.amount_off}" %></td>
       </tr>
     <% end %>
   </tbody>
