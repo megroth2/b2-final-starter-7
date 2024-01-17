@@ -4,6 +4,7 @@ class CreateCoupons < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :code
       t.string :category
+      t.integer :amount_off
       t.boolean :active
 
       t.timestamps
