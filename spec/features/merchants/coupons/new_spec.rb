@@ -30,7 +30,6 @@ RSpec.describe "new coupon page" do
       expect(page).to have_content("Category")
       expect(page).to have_content("Active")
 
-
       fill_in("name", with: "20OFF_coupon")
       fill_in("code", with: "20OFF")
       fill_in("amount_off", with: "2000")
@@ -44,8 +43,27 @@ RSpec.describe "new coupon page" do
       expect(page).to have_content("Amount Off: 2000")
     end
 
-    xit "creates an inactive coupon if the merchant already has 5 active coupons" do
+    it "creates an inactive coupon if the merchant already has 5 active coupons" do
+      @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_4 = create(:coupon, active: true, merchant: @merchant_1)
+      @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
+      
+      fill_in("name", with: "20OFF_coupon")
+      fill_in("code", with: "20OFF")
+      fill_in("amount_off", with: "2000")
+      fill_in("Category", with: "dollar-off")
+      fill_in("active", with: "true") # added condition to create action: if @merchant.max_coupons_activated?, active: false
 
+      click_button("Submit")
+      
+      expect(current_path).to eq(merchant_coupons_path(@merchant_1)) # "/merchants/#{@merchant_1.id}/coupons"
+  
+      within("tbody:contains('Inactive Coupons')") do
+        expect(page).to have_link("20OFF_coupon")
+        expect(page).to have_content("Amount Off: 2000")
+      end
     end
 
     xit "errors if the coupon code is not unique" do
