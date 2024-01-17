@@ -28,11 +28,15 @@ RSpec.describe "new coupon page" do
       expect(page).to have_content("Code")
       expect(page).to have_content("Amount Off")
       expect(page).to have_content("Category")
+      expect(page).to have_content("Active")
+
 
       fill_in("name", with: "20OFF_coupon")
       fill_in("code", with: "20OFF")
       fill_in("amount_off", with: "2000")
       fill_in("category", with: "dollar-off")
+      fill_in("active", with: "true")
+
       click_button("Submit")
 
       expect(current_path).to eq(merchant_coupons_path(@merchant_1)) # "/merchants/#{@merchant_1.id}/coupons"

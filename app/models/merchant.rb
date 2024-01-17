@@ -70,4 +70,12 @@ class Merchant < ApplicationRecord
       true
     end
   end
+
+  def active_coupons
+    coupons.where(active: true)
+  end
+
+  def inactive_coupons
+    coupons.where(active: false)
+  end
 end
