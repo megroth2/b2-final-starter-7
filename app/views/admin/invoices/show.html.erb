@@ -13,7 +13,13 @@
     </section>
       <% end %>
   <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %>
-  <p>Total Revenue: <%= number_to_currency(@invoice.subtotal) %>
+  <p>Subtotal: <%= number_to_currency(@invoice.subtotal) %>
+  <p>Grand Total: <%= number_to_currency(@invoice.grand_total_revenue) %>
+
+  <% if @invoice.coupon.present? %>
+    <p>Coupon applied: <%= link_to "#{@invoice.coupon.name}", merchant_coupon_path(@merchant, @invoice.coupon) %></p>
+  <% else %>
+  <% end %>
 
   <h4>Customer:</h4>
     <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %><br>

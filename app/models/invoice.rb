@@ -16,19 +16,19 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity")
   end
 
-  def subtotal_in_dollars
-    invoice_items.sum("unit_price / 100 * quantity")
-  end
+  # def subtotal_in_dollars
+  #   invoice_items.sum("unit_price / 100 * quantity")
+  # end
 
-  def grand_total_revenue_in_dollars(coupon = nil) # includes coupon discounts
+  def grand_total_revenue(coupon = nil) # includes coupon discounts
     if coupon.present? && coupon.category == "percent-off"
       # divide amount_off by 100, subtract from 1, multiply by subtotal
-      grand_total = subtotal_in_dollars * (1 - (coupon.amount_off / 100.0))
+      grand_total = (subtotal/100) * (1 - (coupon.amount_off / 100.0))
     elsif coupon.present? && coupon.category == "dollar-off"
       # subtract amount_off from subtotal
-      grand_total = subtotal_in_dollars - coupon.amount_off / 100.0
+      grand_total = (subtotal/100) - (coupon.amount_off / 100.0)
     else 
-      grand_total = subtotal_in_dollars
+      grand_total = subtotal
     end
     grand_total = 0 if grand_total < 0
     grand_total

@@ -54,7 +54,7 @@ describe "Admin Invoices Index Page" do
   end
 
   it "should display the total revenue the invoice will generate" do
-    expect(page).to have_content("Total Revenue: $#{@i1.subtotal}")
+    expect(page).to have_content("Grand Total: #{number_to_currency(@i1.subtotal)}")
 
     expect(page).to_not have_content(@i2.subtotal)
   end

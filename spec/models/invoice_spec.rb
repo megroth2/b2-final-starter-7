@@ -30,17 +30,17 @@ RSpec.describe Invoice, type: :model do
     expect(@invoice_1.subtotal).to eq(10000)
   end
 
-  it "calculates subtotal_in_dollars" do
-    expect(@invoice_1.subtotal_in_dollars).to eq(100)
+  # it "calculates subtotal_in_dollars" do
+  #   expect(@invoice_1.subtotal_in_dollars).to eq(100)
+  # end
+
+  it "calculates grand_total_revenue for a percent-off coupon" do
+    expect(number_to_currency(@invoice_1.grand_total_revenue(@coupon_1))).to eq("$40.00") # (90.00 + 10.00) - 60%(100.00)
   end
 
-  it "calculates grand_total_revenue_in_dollars for a percent-off coupon" do
-    expect(@invoice_1.grand_total_revenue_in_dollars(@coupon_1)).to eq(40) # (90.00 + 10.00) - 60%(100.00)
-  end
-
-  it "calculates grand_total_revenue_in_dollars for a dollar-off coupon" do
+  it "calculates grand_total_revenue for a dollar-off coupon" do
     @coupon_1 = create(:coupon, active: true, amount_off: 1000, category: "dollar-off", merchant_id: @merchant_1.id)
 
-    expect(@invoice_1.grand_total_revenue_in_dollars(@coupon_1)).to eq(90) # (90.00 + 10.00) - $10.00
+    expect(number_to_currency(@invoice_1.grand_total_revenue(@coupon_1))).to eq("$90.00") # (90.00 + 10.00) - $10.00
   end
 end

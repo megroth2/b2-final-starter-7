@@ -83,7 +83,7 @@ RSpec.describe "invoices show" do
   it "shows the subtotal for this invoice" do
     visit merchant_invoice_path(@merchant1, @invoice_1)
 
-    expect(page).to have_content(@invoice_1.subtotal_in_dollars)
+    expect(page).to have_content(@invoice_1.subtotal)
   end
 
   it "shows a select field to update the invoice status" do
@@ -110,7 +110,8 @@ RSpec.describe "invoices show" do
     it "displays subtotal and grand total" do
       visit merchant_invoice_path(@merchant1, @invoice_1)
 
-      expect(page).to have_content("Subtotal: $#{@invoice_1.subtotal}")
+      expect(page).to have_content("Subtotal: #{number_to_currency(@invoice_1.subtotal)}")
+      expect(page).to have_content("Grand Total: #{number_to_currency(@invoice_1.grand_total_revenue)}")
     end
  
     it "displays a link to each coupon that was applied" do
@@ -135,13 +136,25 @@ RSpec.describe "invoices show" do
     # 2. When a coupon with a dollar-off value is used with an invoice with multiple merchants' items, the dollar-off amount applies to the total amount even though there may be items present from another merchant.
  
     it "displays name and code of the coupon applied" do
-      visit admin_invoice_path(@invoice_1.id)
-      
-      expect().to eq()
+      visit admin_invoice_path(@invoice_3.id)
+
+      expect(page).to have_content("Coupon Name: #{@coupon_1.name}")
+      expect(page).to have_content("Coupon Code: #{@coupon_1.code}")
     end
  
     it "displays subtotal revenue and grand total revenue" do
-      expect().to eq()
+      visit admin_invoice_path(@invoice_3.id)
+
+      expect(page).to have_content("Subtotal: #{number_to_currency(@invoice_3.subtotal)}")
+      expect(page).to have_content("Grand Total: #{number_to_currency(@invoice_3.grand_total_revenue(@coupon_1))}")
+    end
+
+    xit "only applies coupons for items from that merchant" do
+
+    end
+
+    xit "applies dollar-off coupons regardless of how many merchant's items are on the invoice" do
+
     end
   end
 end

@@ -10,7 +10,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
     @customer = @invoice.customer
     @invoice_item = InvoiceItem.where(invoice_id: params[:id]).first
-    # @coupon = Coupon.find(params[:coupon_id]) if params[:coupon_id].present? 
+    # @merchant = Merchant.find(params[:merchant_id])
   end
 
   def update
