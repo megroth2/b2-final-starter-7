@@ -58,7 +58,8 @@ RSpec.describe "new coupon page" do
 
       click_button("Submit")
       
-      expect(current_path).to eq(merchant_coupons_path(@merchant_1)) # "/merchants/#{@merchant_1.id}/coupons"
+      expect(current_path).to eq(merchant_coupons_path(@merchant_1))
+      expect(page).to have_content("Error: Code created as inactive. The max active coupons allowed has been met for this merchant.")
   
       within("tbody:contains('Inactive Coupons')") do
         expect(page).to have_link("20OFF_coupon")
