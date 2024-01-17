@@ -4,6 +4,7 @@ RSpec.describe "merchant coupon show page" do
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Hair Care")
     @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_2 = create(:coupon, active: false, merchant: @merchant_1)
 
     visit merchant_coupon_path(@merchant_1, @coupon_1)
   end
@@ -48,12 +49,12 @@ RSpec.describe "merchant coupon show page" do
       expect(page).to have_content("Status: inactive")
     end
  
-    it "prevents deactivation if pending invoices belong to the coupon" do 
- 
+    xit "prevents deactivation if pending invoices belong to the coupon" do 
+      
     end
   end
 
-  xdescribe "User Story 5. Merchant Coupon Activate" do
+  describe "User Story 5. Merchant Coupon Activate" do
     # As a merchant 
     # When I visit one of my inactive coupon show pages
     # I see a button to activate that coupon
@@ -62,7 +63,15 @@ RSpec.describe "merchant coupon show page" do
     # And I can see that its status is now listed as 'active'.
  
     it "has an activate button to update coupon status" do
- 
+      visit merchant_coupon_path(@merchant_1, @coupon_2)
+
+      expect(page).to have_button("Activate")
+
+      click_button("Activate")
+
+      expect(current_path).to eq(merchant_coupon_path(@merchant_1, @coupon_2))
+
+      expect(page).to have_content("Status: active")
     end
   end
 

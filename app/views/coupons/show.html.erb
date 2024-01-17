@@ -4,4 +4,9 @@
 <li>Category: <%= @coupon.category %></li>
 <li>Status: <%= @coupon.status %></li>
 <li>Use Count: <%= @coupon.use_count %></li>
-<p><%= button_to "Deactivate", merchant_coupon_path(@merchant, @coupon), method: :patch, params: {active: false} %></p>
+<% if @coupon.status == "active" %>
+  <p><%= button_to "Deactivate", merchant_coupon_path(@merchant, @coupon), method: :patch, params: {active: false} %></p>
+<% elsif @coupon.status == "inactive" %>
+  <p><%= button_to "Activate", merchant_coupon_path(@merchant, @coupon), method: :patch, params: {active: true} %></p>
+<% else %>
+<% end %>

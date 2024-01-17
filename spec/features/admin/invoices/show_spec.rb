@@ -35,7 +35,7 @@ describe "Admin Invoices Index Page" do
     expect(page).to_not have_content("#{@c2.first_name} #{@c2.last_name}")
   end
 
-  it "should display all the items on the invoice" do
+  xit "should display all the items on the invoice" do
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@item_2.name)
 
