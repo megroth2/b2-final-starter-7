@@ -13,4 +13,8 @@ class Coupon < ApplicationRecord
     status = "inactive" if active == false
     status
   end
+
+  def invoices_pending?
+    invoices.any? { |invoice| invoice.status != "completed" }
+  end
 end
