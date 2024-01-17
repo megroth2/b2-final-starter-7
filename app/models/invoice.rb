@@ -15,9 +15,9 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity")
   end
 
-  def merchant_subtotal(merchant)
-    invoice_items.where(item.merchant_id = merchant.id).sum("unit_price * quantity")
-  end
+  # def merchant_subtotal(merchant)
+  #   invoice_items.where(item.merchant_id = merchant.id).sum("unit_price * quantity")
+  # end
 
   def grand_total_revenue(coupon = nil) # includes coupon discounts
     if coupon.present? && coupon.category == "percent-off"
