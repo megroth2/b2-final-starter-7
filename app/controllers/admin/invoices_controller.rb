@@ -5,6 +5,11 @@ class Admin::InvoicesController < ApplicationController
   end
 
   def show
+    # @invoice = Invoice.find(params[:id])
+    # @customer = @invoice.customer
+    # @coupon = @invoice.coupon
+    # @invoice_item = InvoiceItem.where(invoice_id: params[:id]).first
+    # @merchant = @invoice.coupon.merchant
   end
 
   def edit
