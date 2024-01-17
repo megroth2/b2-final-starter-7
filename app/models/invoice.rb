@@ -26,11 +26,13 @@ class Invoice < ApplicationRecord
       grand_total = (subtotal/100) * (1 - (coupon.amount_off / 100.0))
     elsif coupon.present? && coupon.category == "dollar-off"
       # subtract amount_off from subtotal
-      grand_total = (subtotal/100) - (coupon.amount_off / 100.0)
+      # binding.pry
+      grand_total = (subtotal/100) - (coupon.amount_off / 100.0) # returns .06
+      # grand_total = subtotal - coupon.amount_off # returns 6
     else 
       grand_total = subtotal
     end
-    grand_total = 0 if grand_total < 0
+    grand_total = 0.00 if grand_total < 0
     grand_total
   end
 end

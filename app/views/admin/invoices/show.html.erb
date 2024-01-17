@@ -14,10 +14,12 @@
       <% end %>
   <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %>
   <p>Subtotal: <%= number_to_currency(@invoice.subtotal) %>
-  <p>Grand Total: <%= number_to_currency(@invoice.grand_total_revenue) %>
+  <p>Grand Total: <%= number_to_currency(@invoice.grand_total_revenue(@coupon)) %>
 
   <% if @invoice.coupon.present? %>
-    <p>Coupon applied: <%= link_to "#{@invoice.coupon.name}", admin_invoice_path(@invoice) %></p>
+    <p>Coupon applied:</p>
+      <li><%= link_to "#{@invoice.coupon.name}", admin_invoice_path(@invoice) %></li>
+      <li>Coupon Code: <%= @invoice.coupon.code %></li>
   <% else %>
   <% end %>
 
