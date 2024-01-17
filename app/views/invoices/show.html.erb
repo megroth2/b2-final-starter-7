@@ -10,12 +10,20 @@
   </div>
   <br>
 
-  <p> Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
-  <p>Total Revenue: <%= @invoice.subtotal %></p>
+  <p>Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
+  <p>Subtotal: <%= @invoice.subtotal_in_dollars %></p>
+  <p>Grand Total: <%= @invoice.grand_total_revenue_in_dollars(@invoice.coupon) %></p>
+
+  <% if @invoice.coupon.present? %>
+    <p>Coupon applied: <%= link_to "#{@invoice.coupon.name}", merchant_coupon_path(@merchant, @invoice.coupon) %></p>
+  <% else %>
+  <% end %>
 
 
-  <h4>Customer:</h4>
-    <%= @customer.first_name %> <%= @customer.last_name %><br>
+
+
+
+  <p>Customer: <%= @customer.first_name %> <%= @customer.last_name %><br></p>
   <br>
   <br>
   <h4>Items on this Invoice:</h4>
