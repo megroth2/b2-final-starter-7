@@ -6,7 +6,8 @@ describe Coupon do
 
     @customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
 
-    @coupon_1 = create(:coupon, merchant: @merchant_1)
+    @coupon_1 = create(:coupon, merchant: @merchant_1, active: true)
+    @coupon_2 = create(:coupon, merchant: @merchant_1, active: false)
 
     @invoice_1 = Invoice.create!(customer_id: @customer_1.id, status: 2, coupon_id: @coupon_1.id)
     @invoice_2 = Invoice.create!(customer_id: @customer_1.id, status: 2, coupon_id: @coupon_1.id)
@@ -28,5 +29,10 @@ describe Coupon do
 
   it "counts total uses based on successful transactions" do
     expect(@coupon_1.use_count).to eq(2) # if time, could beef up this testing with various scenarios
+  end
+
+  it "returns status based on active flag" do
+    expect(@coupon_1.status).to eq("active")
+    expect(@coupon_2.status).to eq("inactive")
   end
 end
