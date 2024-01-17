@@ -17,7 +17,7 @@
   <p>Grand Total: <%= number_to_currency(@invoice.grand_total_revenue) %>
 
   <% if @invoice.coupon.present? %>
-    <p>Coupon applied: <%= link_to "#{@invoice.coupon.name}", merchant_coupon_path(@merchant, @invoice.coupon) %></p>
+    <p>Coupon applied: <%= link_to "#{@invoice.coupon.name}", admin_invoice_path(@invoice) %></p>
   <% else %>
   <% end %>
 
