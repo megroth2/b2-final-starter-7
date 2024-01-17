@@ -117,7 +117,6 @@ RSpec.describe "invoices show" do
       visit merchant_invoice_path(@merchant1, @invoice_3)
 
       expect(page).to have_link("#{@coupon_1.name}")
-      save_and_open_page
 
       click_link("#{@coupon_1.name}")
 
@@ -125,21 +124,24 @@ RSpec.describe "invoices show" do
     end
   end
 
-  xdescribe "User Story 8. Admin Invoice Show Page: Subtotal and Grand Total Revenues" do
+  describe "User Story 8. Admin Invoice Show Page: Subtotal and Grand Total Revenues" do
     # As an admin
     # When I visit one of my admin invoice show pages
     # I see the name and code of the coupon that was used (if there was a coupon applied)
     # And I see both the subtotal revenue from that invoice (before coupon) and the grand total revenue (after coupon) for this invoice.
+
     # * Alternate Paths to consider: 
     # 1. There may be invoices with items from more than 1 merchant. Coupons for a merchant only apply to items from that merchant.
     # 2. When a coupon with a dollar-off value is used with an invoice with multiple merchants' items, the dollar-off amount applies to the total amount even though there may be items present from another merchant.
  
     it "displays name and code of the coupon applied" do
+      visit admin_invoice_path(@invoice_1.id)
       
+      expect().to eq()
     end
  
     it "displays subtotal revenue and grand total revenue" do
- 
+      expect().to eq()
     end
   end
 end
