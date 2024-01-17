@@ -5,7 +5,11 @@ class Coupon < ApplicationRecord
   has_many :invoices
 
   def use_count
-    invoices.joins(:transactions).where(transactions: { result: 1 }).distinct.count
+    invoices
+    .joins(:transactions)
+    .where(transactions: { result: 1 })
+    .distinct
+    .count
   end
 
   def status

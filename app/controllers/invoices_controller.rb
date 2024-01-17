@@ -9,6 +9,7 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id])
     @customer = @invoice.customer
+    @coupon = @invoice.coupon
     @invoice_item = InvoiceItem.where(invoice_id: params[:id]).first
     if params[:merchant_id].present?
       @merchant = Merchant.find(params[:merchant_id]) # for merchant invoices show page
