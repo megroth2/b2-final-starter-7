@@ -15,17 +15,23 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity")
   end
 
+  def merchant_subtotal(merchant)
+    invoice_items.where(item.merchant_id = merchant.id).sum("unit_price * quantity")
+  end
+
   def grand_total_revenue(coupon = nil) # includes coupon discounts
     if coupon.present? && coupon.category == "percent-off"
-      # divide amount_off by 100, subtract from 1, multiply by subtotal
+      # subtract amount_off from 1, multiply by subtotal
       grand_total = (subtotal/100) * (1 - (coupon.amount_off / 100.0))
+      # sad path: only apply the discount on items that belong to the coupon's merchant (use merchant_subtotal instead of subtotal)
     elsif coupon.present? && coupon.category == "dollar-off"
       # subtract amount_off from subtotal
-      # binding.pry
       grand_total = subtotal/100 - coupon.amount_off/100
     else 
+      # no coupon, so the grand total is the same
       grand_total = subtotal
     end
+    # grand total cannot be less than 0
     grand_total = 0 if grand_total < 0
     grand_total
   end
