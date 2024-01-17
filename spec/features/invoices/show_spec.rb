@@ -24,7 +24,7 @@ RSpec.describe "invoices show" do
 
     @invoice_1 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-27 14:54:09")
     @invoice_2 = Invoice.create!(customer_id: @customer_1.id, status: 2, created_at: "2012-03-28 14:54:09")
-    @invoice_3 = Invoice.create!(customer_id: @customer_2.id, status: 2)
+    @invoice_3 = Invoice.create!(customer_id: @customer_2.id, status: 2, coupon_id: @coupon_1.id)
     @invoice_4 = Invoice.create!(customer_id: @customer_3.id, status: 2)
     @invoice_5 = Invoice.create!(customer_id: @customer_4.id, status: 2)
     @invoice_6 = Invoice.create!(customer_id: @customer_5.id, status: 2)
@@ -78,10 +78,10 @@ RSpec.describe "invoices show" do
     expect(page).to_not have_content(@ii_4.unit_price)
   end
 
-  it "shows the total revenue for this invoice" do
+  it "shows the subtotal for this invoice" do
     visit merchant_invoice_path(@merchant1, @invoice_1)
 
-    expect(page).to have_content(@invoice_1.subtotal)
+    expect(page).to have_content(@invoice_1.subtotal_in_dollars)
   end
 
   it "shows a select field to update the invoice status" do
@@ -112,7 +112,14 @@ RSpec.describe "invoices show" do
     end
  
     it "displays a link to each coupon that was applied" do
- 
+      visit merchant_invoice_path(@merchant1, @invoice_3)
+
+      expect(page).to have_link("#{@coupon_1.name}")
+      save_and_open_page
+
+      click_link("#{@coupon_1.name}")
+
+      expect(current_path).to eq(merchant_coupon_path(@merchant1, @coupon_1))
     end
   end
 
