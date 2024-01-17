@@ -11,8 +11,8 @@
   <br>
 
   <p>Created on: <%= @invoice.created_at.strftime("%A, %B %-d, %Y") %></p>
-  <p>Subtotal: <%= @invoice.subtotal_in_dollars %></p>
-  <p>Grand Total: <%= @invoice.grand_total_revenue_in_dollars(@invoice.coupon) %></p>
+  <p>Subtotal: $<%= @invoice.subtotal %></p>
+  <p>Grand Total: $<%= @invoice.grand_total_revenue_in_dollars(@invoice.coupon) %></p>
 
   <% if @invoice.coupon.present? %>
     <p>Coupon applied: <%= link_to "#{@invoice.coupon.name}", merchant_coupon_path(@merchant, @invoice.coupon) %></p>
