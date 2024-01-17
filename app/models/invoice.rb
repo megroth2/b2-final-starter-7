@@ -9,16 +9,11 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items
 
-  # enum status: [:cancelled, :in_progress, :completed]
   enum :status, {cancelled: 0, "in progress": 1, completed: 2 }
 
   def subtotal
     invoice_items.sum("unit_price * quantity")
   end
-
-  # def subtotal_in_dollars
-  #   invoice_items.sum("unit_price / 100 * quantity")
-  # end
 
   def grand_total_revenue(coupon = nil) # includes coupon discounts
     if coupon.present? && coupon.category == "percent-off"
