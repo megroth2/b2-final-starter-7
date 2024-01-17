@@ -7,10 +7,27 @@
   <thead>
   </thead>
   <tbody>
-    <% @merchant.coupons.each do |coupon| %>
+  "Active Coupons"
+    <% @merchant.active_coupons.each do |coupon| %>
       <tr>
         <td><%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></td>
-        <td><%= "Amount Off: #{coupon.amount_off}" %></td>
+        <td>Amount Off: <%= coupon.amount_off %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table></br>
+
+
+<style>table, th, td</style>
+<table>
+  <thead>
+  </thead>
+  <tbody>
+  "Inactive Coupons"
+    <% @merchant.inactive_coupons.each do |coupon| %>
+      <tr>
+        <td><%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></td>
+        <td>Amount Off: <%= coupon.amount_off %></td>
       </tr>
     <% end %>
   </tbody>

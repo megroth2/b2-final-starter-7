@@ -44,8 +44,8 @@ RSpec.describe "merchant coupons index" do
     @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
     @coupon_2 = create(:coupon, active: true, merchant: @merchant_1)
     @coupon_3 = create(:coupon, active: true, merchant: @merchant_1)
-    @coupon_4 = create(:coupon, active: true, merchant: @merchant_1)
-    @coupon_5 = create(:coupon, active: true, merchant: @merchant_1)
+    @coupon_4 = create(:coupon, active: false, merchant: @merchant_1)
+    @coupon_5 = create(:coupon, active: false, merchant: @merchant_1)
 
     visit merchant_coupons_path(@merchant_1)
   end
@@ -62,18 +62,16 @@ RSpec.describe "merchant coupons index" do
     it "displays all coupons" do
       # visit("/merchants/#{@merchant_1.id}/coupons")
 
-      within("table") do
-        expect(page).to have_link("#{@coupon_1.name}")
-        expect(page).to have_link("#{@coupon_2.name}")
-        expect(page).to have_link("#{@coupon_3.name}")
-        expect(page).to have_link("#{@coupon_4.name}")
-        expect(page).to have_link("#{@coupon_5.name}")
-        expect(page).to have_content("Amount Off: #{@coupon_1.amount_off}")
+      expect(page).to have_link("#{@coupon_1.name}")
+      expect(page).to have_link("#{@coupon_2.name}")
+      expect(page).to have_link("#{@coupon_3.name}")
+      expect(page).to have_link("#{@coupon_4.name}")
+      expect(page).to have_link("#{@coupon_5.name}")
+      expect(page).to have_content("Amount Off: #{@coupon_1.amount_off}")
 
-        click_link("#{@coupon_1.name}")
+      click_link("#{@coupon_1.name}")
 
-        expect(current_path).to eq(merchant_coupon_path(@merchant_1, @coupon_1))
-      end
+      expect(current_path).to eq(merchant_coupon_path(@merchant_1, @coupon_1))
     end
   end
 
@@ -109,13 +107,27 @@ RSpec.describe "merchant coupons index" do
     end
   end
 
-  xdescribe "User Story 6. Merchant Coupon Index Sorted" do
+  describe "User Story 6. Merchant Coupon Index Sorted" do
     # As a merchant
     # When I visit my coupon index page
     # I can see that my coupons are separated between active and inactive coupons.
    
     it "displays active and inactive coupons in separate sections" do
-   
+      within("tbody:contains('Active Coupons')") do
+        expect(page).to have_link("#{@coupon_1.name}")
+        expect(page).to have_link("#{@coupon_2.name}")
+        expect(page).to have_link("#{@coupon_3.name}")
+        expect(page).to_not have_link("#{@coupon_4.name}")
+        expect(page).to_not have_link("#{@coupon_5.name}")
+      end
+
+      within("tbody:contains('Inactive Coupons')") do
+        expect(page).to_not have_link("#{@coupon_1.name}")
+        expect(page).to_not have_link("#{@coupon_2.name}")
+        expect(page).to_not have_link("#{@coupon_3.name}")
+        expect(page).to have_link("#{@coupon_4.name}")
+        expect(page).to have_link("#{@coupon_5.name}")
+      end
     end
   end
 end

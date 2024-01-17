@@ -36,10 +36,10 @@ FactoryBot.define do
   end
 
   factory :coupon do
-    name {"#{code}_coupon"}
+    name {"#{code} coupon"}
     code {Faker::Commerce.promotion_code}
     category { ["percent-off", "dollar-off"].sample }
-    amount_off { ["#{rand(100)}%", "$#{rand(1..100)}"].sample }
+    amount_off { ["#{rand(1..100)}", "#{rand(1..100)}"].sample }
     active {false}
     merchant 
   end
