@@ -7,7 +7,7 @@
   <thead>
   </thead>
   <tbody>
-  "Active Coupons"
+  Active Coupons
     <% @merchant.active_coupons.each do |coupon| %>
       <tr>
         <td><%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></td>
@@ -23,7 +23,7 @@
   <thead>
   </thead>
   <tbody>
-  "Inactive Coupons"
+  Inactive Coupons
     <% @merchant.inactive_coupons.each do |coupon| %>
       <tr>
         <td><%= link_to "#{coupon.name}", merchant_coupon_path(@merchant, coupon) %></td>
