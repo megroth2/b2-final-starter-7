@@ -1,8 +1,6 @@
 <h3><%= @coupon.name %></h3>
-
-<p><%= "Name: #{@coupon.name}" %></p></br>
-<p><%= "Code: #{@coupon.code}" %></p></br>
-<p><%= "Amount Off: #{@coupon.amount_off}" %></p></br>
-<p><%= "Category: #{@coupon.category}" %></p></br>
-<p><%= "Status: #{@coupon.status}" %></p></br>
-<p><%= "Use Count: #{@coupon.use_count}" %></p>
+<li>Code: <%= @coupon.code %></li>
+<li>Amount Off: <%= @coupon.amount_off %></li>
+<li>Category: <%= @coupon.category %></li>
+<li>Status: <%= @coupon.status %></li>
+<li>Use Count: <%= @coupon.use_count %></li>

@@ -18,12 +18,13 @@ RSpec.describe "merchant coupon show page" do
     # (Note: "use" of a coupon should be limited to successful transactions.)
     
     it "shows coupon name, code, amount_off, status, and count of times used" do
-      expect(page).to have_content("Name: #{@coupon_1.name}")
+      expect(page).to have_content(@coupon_1.name)
       expect(page).to have_content("Code: #{@coupon_1.code}")
       expect(page).to have_content("Amount Off: #{@coupon_1.amount_off}")
       expect(page).to have_content("Category: #{@coupon_1.category}")
       expect(page).to have_content("Status: active")
       expect(page).to have_content("Use Count: #{@coupon_1.use_count}")
+      save_and_open_page
     end
   end
 
