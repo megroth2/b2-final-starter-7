@@ -76,13 +76,12 @@ RSpec.describe "invoices show" do
     expect(page).to have_content(@ii_1.quantity)
     expect(page).to have_content(@ii_1.unit_price)
     expect(page).to_not have_content(@ii_4.unit_price)
-
   end
 
   it "shows the total revenue for this invoice" do
     visit merchant_invoice_path(@merchant1, @invoice_1)
 
-    expect(page).to have_content(@invoice_1.total_revenue)
+    expect(page).to have_content(@invoice_1.subtotal)
   end
 
   it "shows a select field to update the invoice status" do
@@ -100,4 +99,38 @@ RSpec.describe "invoices show" do
     end
   end
 
+  xdescribe "User Story 7. Merchant Invoice Show Page: Subtotal and Grand Total Revenues" do
+    # As a merchant
+    # When I visit one of my merchant invoice show pages
+    # I see the subtotal for my merchant from this invoice (that is, the total that does not include coupon discounts)
+    # And I see the grand total revenue after the discount was applied
+    # And I see the name and code of the coupon used as a link to that coupon's show page.
+    it "displays subtotal and grand total" do
+      visit merchant_invoice_path(@merchant1, @invoice_1)
+
+      expect(page).to have_content("Subtotal: #{@invoice_1.subtotal}")
+    end
+ 
+    it "displays a link to each coupon that was applied" do
+ 
+    end
+  end
+
+  xdescribe "User Story 8. Admin Invoice Show Page: Subtotal and Grand Total Revenues" do
+    # As an admin
+    # When I visit one of my admin invoice show pages
+    # I see the name and code of the coupon that was used (if there was a coupon applied)
+    # And I see both the subtotal revenue from that invoice (before coupon) and the grand total revenue (after coupon) for this invoice.
+    # * Alternate Paths to consider: 
+    # 1. There may be invoices with items from more than 1 merchant. Coupons for a merchant only apply to items from that merchant.
+    # 2. When a coupon with a dollar-off value is used with an invoice with multiple merchants' items, the dollar-off amount applies to the total amount even though there may be items present from another merchant.
+ 
+    it "displays name and code of the coupon applied" do
+      
+    end
+ 
+    it "displays subtotal revenue and grand total revenue" do
+ 
+    end
+  end
 end
