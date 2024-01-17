@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :items, except: [:destroy]
     resources :item_status, only: [:update]
     resources :invoices, only: [:index, :show, :update]
-    resources :coupons, only: [:new, :index, :show, :create]
+    resources :coupons, only: [:new, :index, :show, :create, :update]
   end
 
   namespace :admin do
