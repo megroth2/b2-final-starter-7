@@ -1,7 +1,14 @@
 require "rails_helper"
 
-RSpec.describe "coupon show page" do 
-  xdescribe "User Story 3. Merchant Coupon Show Page" do
+RSpec.describe "merchant coupon show page" do 
+  before(:each) do
+    @merchant_1 = Merchant.create!(name: "Hair Care")
+    @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
+
+    visit merchant_coupon_path(@merchant_1, @coupon_1)
+  end
+
+  describe "User Story 3. Merchant Coupon Show Page" do
     # As a merchant 
     # When I visit a merchant's coupon show page 
     # I see that coupon's name and code 
@@ -11,7 +18,13 @@ RSpec.describe "coupon show page" do
     # (Note: "use" of a coupon should be limited to successful transactions.)
     
     it "shows coupon name, code, amount_off, status, and count of times used" do
-
+      expect(page).to have_content(@coupon_1.name)
+      expect(page).to have_content("Code: #{@coupon_1.code}")
+      expect(page).to have_content("Amount Off: #{@coupon_1.amount_off}")
+      expect(page).to have_content("Category: #{@coupon_1.category}")
+      expect(page).to have_content("Status: active")
+      expect(page).to have_content("Use Count: #{@coupon_1.use_count}")
+      save_and_open_page
     end
   end
 
