@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe "merchant coupon show page" do 
   before(:each) do
     @merchant_1 = Merchant.create!(name: "Hair Care")
+    
+    @customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
+
     @coupon_1 = create(:coupon, active: true, merchant: @merchant_1)
     @coupon_2 = create(:coupon, active: false, merchant: @merchant_1)
 
@@ -49,8 +52,16 @@ RSpec.describe "merchant coupon show page" do
       expect(page).to have_content("Status: inactive")
     end
  
-    xit "prevents deactivation if pending invoices belong to the coupon" do 
-      
+    it "prevents deactivation if pending invoices belong to the coupon" do 
+      @invoice_3 = Invoice.create!(customer_id: @customer_1.id, status: 1, coupon_id: @coupon_1.id)
+
+      expect(page).to have_button("Deactivate")
+
+      click_button("Deactivate")
+
+      expect(current_path).to eq(merchant_coupon_path(@merchant_1, @coupon_1))
+      expect(page).to have_content("Error: This coupon cannot be deactivated because it has pending invoices") 
+      expect(page).to have_content("Status: active")
     end
   end
 
